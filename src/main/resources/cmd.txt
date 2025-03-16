@@ -1,0 +1,15 @@
+https://medium.com/version-1/db-migrations-using-liquibase-8cecf0209118
+
+
+docker run -itd -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 --name postgresql postgres
+to login container
+PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres
+
+for schema
+mvn liquibase:generateChangeLog -Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/existingSql.yml
+
+for data migration
+mvn liquibase:generateChangeLog -Dliquibase.diffTypes=data -Dliquibase.outputChangeLogFile=src/main/resources/db/changelog/existingSql.yml
+
+for rollback
+mvn liquibase:rollback -Dliquibase.rollbackCount=1
